@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 
 import 'normalize-css'
+import Vue2Filters from 'vue2-filters'
+Vue.use(Vue2Filters)
 
 Vue.config.productionTip = false
 

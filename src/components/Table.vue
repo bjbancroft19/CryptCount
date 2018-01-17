@@ -1,4 +1,10 @@
 <template>
+    <div id="table">
+
+    <div class="container opening">
+        <p>Top 100 Cryptocurrencies by Market Cap</p>
+    </div>
+
     <table class="table table-hover">
       <thead>
           <tr>
@@ -13,24 +19,26 @@
           </tr>
       </thead>
       <tbody>
-          <tr v-for="coin in coins" :key="coin.id">
-              <td>{{ coin.rank }}</td>
-              <td><img v-bind:src="getCoinImage(coin.symbol)"> &nbsp;{{ coin.name }}</td>
-              <td>{{ coin.symbol }}</td>
-              <td>{{ coin.price_usd | currency }}</td>
-              <td v-bind:style="getColor(coin.percent_change_1h)">
-                  <span v-if="coin.percent_change_1h > 0">+</span>{{ coin.percent_change_1h }}%
-              </td>
-              <td v-bind:style="getColor(coin.percent_change_1h)">
-                  <span v-if="coin.percent_change_24h > 0">+</span>{{ coin.percent_change_24h }}%
-              </td>
-              <td v-bind:style="getColor(coin.percent_change_1h)">
-                  <span v-if="coin.percent_change_7d > 0">+</span>{{ coin.percent_change_7d }}%
-              </td>
-              <td>{{ coin.market_cap_usd | currency }}</td>
-          </tr>
+          <router-link v-for="coin in coins" :key="coin.id" tag="tr" v-bind:to="coin.id">
+            <td>{{ coin.rank }}</td>
+            <td><img v-bind:src="getCoinImage(coin.symbol)"> &nbsp;{{ coin.name }}</td>
+            <td>{{ coin.symbol }}</td>
+            <td>{{ coin.price_usd | currency }}</td>
+            <td v-bind:style="getColor(coin.percent_change_1h)">
+                <span v-if="coin.percent_change_1h > 0">+</span>{{ coin.percent_change_1h }}%
+            </td>
+            <td v-bind:style="getColor(coin.percent_change_24h)">
+                <span v-if="coin.percent_change_24h > 0">+</span>{{ coin.percent_change_24h }}%
+            </td>
+            <td v-bind:style="getColor(coin.percent_change_7d)">
+                <span v-if="coin.percent_change_7d > 0">+</span>{{ coin.percent_change_7d }}%
+            </td>
+            <td>{{ coin.market_cap_usd | currency }}</td>
+          </router-link>
       </tbody>
   </table>
+
+  </div>
 </template>
 
 <script>
@@ -38,7 +46,7 @@ import axios from 'axios';
 
 // The API for metadata about each currency, used for images. https://min-api.cryptocompare.com/data/
 let cryptocompareApi = "https://min-api.cryptocompare.com";
-let cryptocompareBaseImage = "https://www.cryptocompare.com";
+let cryptoCompare = "https://www.cryptocompare.com";
 
 // The API for currency prices. https://coinmarketcap.com/api/
 let coinmarketcapApi = "https://api.coinmarketcap.com";
@@ -47,7 +55,7 @@ let coinmarketcapApi = "https://api.coinmarketcap.com";
 let updateInterval = 60 * 1000;
 
 export default {
-  name: 'Coins',
+  name: 'Table',
 
   data() {
       return {
@@ -77,7 +85,7 @@ export default {
         },
 
         /**
-         * Get the top 10 cryptocurrencies by value. The endpoint refreshes every 5 
+         * Get the top 100 cryptocurrencies by value. The endpoint refreshes every 5 
          * minutes.
          */
         getCoins: function() {
@@ -97,7 +105,7 @@ export default {
          */
         getCoinImage: function(symbol) {
             if (this.coinData[symbol]) {
-                return cryptocompareBaseImage + this.coinData[symbol].ImageUrl;
+                return cryptoCompare + this.coinData[symbol].ImageUrl;
             }
         },
 
@@ -106,12 +114,15 @@ export default {
          */
         getColor: (num) => {
             return num > 0 ? "color: #00d174" : "color: #fb2853";
-        }
+        },
 
   },
 
   created() {
-      this.getCoinData()
+      this.getCoinData();
+      setInterval(() => {
+          this.getCoins();
+      }, updateInterval);
   }
 
 }
@@ -119,11 +130,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+.opening {
+    text-align: center;
+    padding: 50px 0;
+}
+
   table {
     width: 100%;
     color: #fff;
     tr {
-      line-height: 50px;
+      line-height: 35px;
       &:nth-child(2n) {
         background-color: rgba(255,255,255,0.1);
       }

@@ -9,8 +9,13 @@ body {
     letter-spacing: 1px;
 }
 
-h1 {
+h1, h2, h3 {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
-    text-align: center;
 }
+
+.container {
+    width: 95%;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
