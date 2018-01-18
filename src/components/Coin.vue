@@ -1,25 +1,31 @@
 <template>
-  <div class="container coin-page">
-    <div class="coin-left">
-      <img v-bind:src="getCoinImage(coinData.symbol)">
-      <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
-      <p class="coin-rank">Rank #{{ coinData.rank }}</p>
-      <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a>
+
+    <div class="container coin-page">
+      <router-link tag="div" to="/" class="back-button">
+        <icon name="chevron-left"></icon>
+        <span>Back</span>
+      </router-link>
+      <div class="coin-left">
+        <img v-bind:src="getCoinImage(coinData.symbol)">
+        <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
+        <p class="coin-rank">Rank #{{ coinData.rank }}</p>
+        <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a>
+      </div>
+      <div class="coin-right">
+        <h2>Current Price (USD)</h2>
+        <p>{{ price.USD | currency}}</p>
+        <h2>Circulating Supply</h2>
+        <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
+        <h2>Market Cap (USD)</h2>
+        <p>{{ coinData.market_cap_usd | currency }}</p>
+      </div>
     </div>
-    <div class="coin-right">
-      <h2>Current Price (USD)</h2>
-      <p>{{ price.USD | currency}}</p>
-      <h2>Circulating Supply</h2>
-      <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
-      <h2>Market Cap (USD)</h2>
-      <p>{{ coinData.market_cap_usd | currency }}</p>
-    </div>
-  </div>
+
 </template>
 
 <script>
 import axios from 'axios'
-import 'vue-awesome/icons/globe'
+import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 
 let cryptoCompare = 'https://www.cryptocompare.com'
@@ -102,11 +108,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.back-button {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: -50px;
+  .fa-icon {
+    height: 1.6em;
+    width: auto;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  @media screen and (max-width: 1400px) and (min-width: 1001px) {
+    margin-left: 0;
+  }
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+}
 .coin-page {
   display: flex;
   flex-direction: row;
-  height: 100vh;
-  margin-top: -60px;
+  height: calc(100vh - 60px);
   @media screen and (max-width: 1000px) {
     margin-top: 60px;
     flex-direction: column;
