@@ -119,16 +119,27 @@ export default {
     height: 1.6em;
     width: auto;
     margin-right: 5px;
+    @media screen and (max-width: 1000px) {
+      height: 1em;
+      margin-right: 10px;
+    }
   }
   span {
     font-size: 14px;
     margin-top: 10px;
+    @media screen and (max-width: 1000px) {
+      margin-top: 0;
+    }
   }
   @media screen and (max-width: 1400px) and (min-width: 1001px) {
     margin-left: 0;
   }
   @media screen and (max-width: 1000px) {
-    display: none;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: 18px;
+    margin-left: 0;
   }
 }
 .coin-page {
