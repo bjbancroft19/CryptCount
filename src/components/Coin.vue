@@ -2,9 +2,8 @@
   <div class="container coin-page">
     <div class="coin-left">
       <img v-bind:src="getCoinImage(coinData.symbol)">
-      <h1>{{ coinData.name }}</h1>
+      <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
       <p class="coin-rank">#{{ coinData.rank }}</p>
-      <p>Lorem ipsum dolor sit amet, his eu lorem definitiones, per eu exerci timeam forensibus. No alii wisi atqui eam, omittam conceptam maiestatis ea vel. Ei ius elitr facilis, pri id semper essent. Integre petentium sententiae an est. Duis legere in sit, alia expetendis id has. Utroque hendrerit eos ut, mucius minimum intellegat duo at, meliore maluisset sea an.</p>
     </div>
     <div class="coin-right">
       <h2>Current Price (USD)</h2>
@@ -32,7 +31,7 @@ export default {
     return {
       price: [],
       coinData: {},
-      imageData: {}
+      cryptoCompareData: {}
     }
   },
 
@@ -66,12 +65,12 @@ export default {
         })
     },
 
-    getImageData: function () {
+    getCryptoCompareData: function () {
       let self = this
 
       axios.get(cryptocompareApi + '/data/all/coinlist')
         .then((resp) => {
-          self.imageData = resp.data.Data
+          self.cryptoCompareData = resp.data.Data
           self.getCoinData()
         })
         .catch((err) => {
@@ -81,14 +80,14 @@ export default {
     },
 
     getCoinImage: function (symbol) {
-      if (this.imageData[symbol]) {
-        return cryptoCompare + this.imageData[symbol].ImageUrl
+      if (this.cryptoCompareData[symbol]) {
+        return cryptoCompare + this.cryptoCompareData[symbol].ImageUrl
       }
     }
   },
 
   created () {
-    this.getImageData()
+    this.getCryptoCompareData()
     setInterval(() => {
       this.getPrice(this.coinData.symbol)
     }, updateInterval)
