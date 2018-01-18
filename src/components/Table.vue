@@ -138,7 +138,6 @@ export default {
   text-align: center;
   padding: 50px 0;
 }
-
 table {
   width: 100%;
   color: #fff;
