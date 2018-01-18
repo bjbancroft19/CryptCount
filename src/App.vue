@@ -1,12 +1,12 @@
 <template>
   <div id="app">
   <div class="container header">
-      <div class="header-left">
-          <h1>CryptoCompare</h1>
-      </div>
-      <div class="header-right">
-          <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;View on GitHub</a>
-      </div>
+    <div class="header-left">
+      <h1>CryptoCompare</h1>
+    </div>
+    <div class="header-right">
+      <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;View on GitHub</a>
+    </div>
   </div>
   <router-view/>
   </div>
@@ -55,4 +55,3 @@ export default {
     }
 }
 </style>
-
