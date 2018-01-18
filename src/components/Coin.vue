@@ -3,7 +3,8 @@
     <div class="coin-left">
       <img v-bind:src="getCoinImage(coinData.symbol)">
       <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
-      <p class="coin-rank">#{{ coinData.rank }}</p>
+      <p class="coin-rank">Rank #{{ coinData.rank }}</p>
+      <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a>
     </div>
     <div class="coin-right">
       <h2>Current Price (USD)</h2>
@@ -18,6 +19,8 @@
 
 <script>
 import axios from 'axios'
+import 'vue-awesome/icons/globe'
+import Icon from 'vue-awesome/components/Icon'
 
 let cryptoCompare = 'https://www.cryptocompare.com'
 let coinmarketcapApi = 'https://api.coinmarketcap.com'
@@ -26,6 +29,9 @@ let updateInterval = 10 * 1000
 
 export default {
   name: 'Coin',
+  components: {
+    Icon
+  },
 
   data () {
     return {
@@ -122,6 +128,19 @@ export default {
     .coin-rank {
       margin-top: 0;
       font-size: 18px;
+    }
+    a {
+      display: block;
+      color: inherit;
+      align-self: center;
+      &:hover {
+        .fa-icon { fill: #53346d; }
+      }
+      .fa-icon {
+        transition: .3s ease;
+        height: 2em;
+        width: auto;
+      }
     }
     p { font-size: 14px; }
     h1 {
