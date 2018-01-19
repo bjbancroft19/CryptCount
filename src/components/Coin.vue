@@ -13,7 +13,7 @@
       </div>
       <div class="coin-right">
         <h2>Current Price (USD)</h2>
-        <p>{{ coinData.price_usd | currency}}</p>
+        <p>{{ coinData.price_usd | currency}} <span class="percent-change" v-bind:style="getColor(coinData.percent_change_24h)"><span v-if="coinData.percent_change_24h > 0">+</span>{{ coinData.percent_change_24h }}%</span></p>
         <h2>Circulating Supply</h2>
         <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
         <h2>Market Cap (USD)</h2>
@@ -73,6 +73,13 @@ export default {
           self.getCoinData()
           console.error(err)
         })
+    },
+
+    /**
+      * Colour red or green for negative or positive values
+      */
+    getColor: (num) => {
+      return num > 0 ? 'color: #00d174' : 'color: #fb2853'
     },
 
     getCoinImage: function (symbol) {
@@ -182,6 +189,7 @@ export default {
   .coin-right {
     padding: 0 10%;
     box-sizing: border-box;
+    .percent-change { font-size: 0.8em; }
     h2 {
       font-size: 18px;
       margin: 0 0;
