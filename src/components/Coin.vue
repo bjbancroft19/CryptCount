@@ -13,7 +13,7 @@
       </div>
       <div class="coin-right">
         <h2>Current Price (USD)</h2>
-        <p>{{ price.USD | currency}}</p>
+        <p>{{ coinData.price_usd | currency}}</p>
         <h2>Circulating Supply</h2>
         <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
         <h2>Market Cap (USD)</h2>
@@ -49,28 +49,12 @@ export default {
 
   methods: {
 
-    /**
-     * Get price data for the current coin
-     */
-    getPrice: function (symbol) {
-      let self = this
-
-      axios.get(cryptocompareApi + `/data/price?fsym=${symbol}&tsyms=USD`)
-        .then((resp) => {
-          self.price = resp.data
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    },
-
     getCoinData: function () {
       let self = this
 
       axios.get(coinmarketcapApi + `/v1/ticker/${this.$route.params.id}/`)
         .then((resp) => {
           self.coinData = resp.data[0]
-          self.getPrice(this.coinData.symbol)
         })
         .catch((err) => {
           console.error(err)
