@@ -23,7 +23,7 @@
     <tbody>
       <router-link v-for="coin in coins" :key="coin.id" tag="tr" v-bind:to="coin.id">
         <td>{{ coin.rank }}</td>
-        <td><img v-bind:src="getCoinImage(coin.symbol)"> &nbsp;{{ coin.name }}</td>
+        <td><img v-bind:src="'static/images/svg/' + coin.symbol.toLowerCase() + '.svg'"> &nbsp;{{ coin.name }}</td>
         <td>{{ coin.symbol }}</td>
         <td v-bind:style="getColor(coin.percent_change_24h)">
           <span v-if="coin.percent_change_24h > 0">+</span>{{ coin.percent_change_24h }}%
@@ -42,10 +42,6 @@
 <script>
 import axios from 'axios'
 
-// The API for metadata about each currency, used for images. https://min-api.cryptocompare.com/data/
-let cryptocompareApi = 'https://min-api.cryptocompare.com'
-let cryptoCompare = 'https://www.cryptocompare.com'
-
 // The API for currency prices. https://coinmarketcap.com/api/
 let coinmarketcapApi = 'https://api.coinmarketcap.com'
 
@@ -57,30 +53,11 @@ export default {
 
   data () {
     return {
-      coins: [],
-      coinData: {}
+      coins: []
     }
   },
 
   methods: {
-
-    /**
-      * Use this data for getting the symbol which we can then use later on
-      * to get the logo.
-      */
-    getCoinData: function () {
-      let self = this
-
-      axios.get(cryptocompareApi + '/data/all/coinlist')
-        .then((resp) => {
-          self.coinData = resp.data.Data
-          self.getCoins()
-        })
-        .catch((err) => {
-          self.getCoins()
-          console.error(err)
-        })
-    },
 
     /**
       * Get the top 100 cryptocurrencies by value. The endpoint refreshes every 5
@@ -99,15 +76,6 @@ export default {
     },
 
     /**
-      * Return the currency's logo using the symbol (e.g. 'ETH')
-      */
-    getCoinImage: function (symbol) {
-      if (this.coinData[symbol]) {
-        return cryptoCompare + this.coinData[symbol].ImageUrl
-      }
-    },
-
-    /**
       * Colour red or green for negative or positive values
       */
     getColor: (num) => {
@@ -117,7 +85,7 @@ export default {
   },
 
   created () {
-    this.getCoinData()
+    this.getCoins()
     setInterval(() => {
       this.getCoins()
     }, updateInterval)
