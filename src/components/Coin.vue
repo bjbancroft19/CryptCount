@@ -97,7 +97,7 @@ export default {
     height: 1.6em;
     width: auto;
     margin-right: 5px;
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       height: 1.3em;
       margin-right: 10px;
     }
@@ -105,14 +105,14 @@ export default {
   span {
     font-size: 14px;
     margin-top: 10px;
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       display: none;
     }
   }
-  @media screen and (max-width: 1400px) and (min-width: 821px) {
+  @media screen and (max-width: 1400px) and (min-width: 1001px) {
     margin-left: 0;
   }
-  @media screen and (max-width: 820px) {
+  @media screen and (max-width: 1000px) {
     flex-direction: row;
     align-items: center;
     position: absolute;
@@ -123,7 +123,7 @@ export default {
 .coin-page {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 60px);
+  height: calc(90vh - 82px);
   @media screen and (max-width: 1000px) {
     margin-top: 50px;
     flex-direction: column;
@@ -193,17 +193,15 @@ export default {
       }
     }
     h2 {
-      font-size: 18px;
+      font-size: 16px;
       margin: 0 0;
-      @media screen and (max-width: 1000px) {
-        font-size: 16px;
-        padding-bottom: 5px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      }
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
     p {
-      font-size: 2.5em;
+      font-size: 2em;
       margin: 0;
+      padding-top: 5px;
       @media screen and (max-width: 1000px) {
         font-size: 1em;
         padding-top: 5px;

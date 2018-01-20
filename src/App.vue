@@ -99,17 +99,17 @@ export default {
   position: relative;
   .header-left, .header-right { width: 50%; }
   .header-left {
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       width: 100%;
     }
   }
   .header-right {
     .github-text {
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 1000px) {
         display: none;
       }
     }
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       width: initial;
       position: absolute;
       right: 8px;
@@ -118,7 +118,7 @@ export default {
       height: 1.2em;
       vertical-align: sub;
       width: auto;
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 1000px) {
         height: 1.6em;
         vertical-align: middle;
       }
@@ -130,7 +130,7 @@ export default {
     font-size: 1.6em;
     letter-spacing: 5px;
     cursor: pointer;
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       text-align: center;
     }
   }
