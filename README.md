@@ -1,4 +1,4 @@
-# cryptocompare
+# CryptCount
 
 > Top 100 Cryptocurrencies by Market Cap
 
