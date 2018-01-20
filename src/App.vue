@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
   <div class="container header">
     <div class="header-left">
       <router-link tag="h1" to="/">CryptCount</router-link>
@@ -8,6 +9,12 @@
       <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><icon name="github"></icon> &nbsp;View on GitHub</a>
     </div>
   </div>
+
+  <div class="top-bar">
+    <p><strong>Market Cap:</strong> {{ globalData.total_market_cap_usd | currency }}</p>
+    <p><strong>Total Volume (24h):</strong> {{ globalData.total_24h_volume_usd | currency('', 0) }}</p>
+  </div>
+
   <router-view/>
   </div>
 </template>
@@ -15,12 +22,52 @@
 <script>
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import axios from 'axios'
+
+// The API for currency prices. https://coinmarketcap.com/api/
+let coinmarketcapApi = 'https://api.coinmarketcap.com'
+
+// Send request every x milliseconds
+let updateInterval = 60 * 1000
 
 export default {
   name: 'App',
   components: {
     Icon
+  },
+
+  data () {
+    return {
+      globalData: []
+    }
+  },
+
+  methods: {
+
+    /**
+      * Get global data for cryptocurrency market
+      */
+    getGlobalData: function () {
+      let self = this
+
+      axios.get(coinmarketcapApi + '/v1/global/')
+        .then((resp) => {
+          self.globalData = resp.data
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    }
+
+  },
+
+  created () {
+    this.getGlobalData()
+    setInterval(() => {
+      this.getGlobalData()
+    }, updateInterval)
   }
+
 }
 </script>
 
@@ -29,41 +76,58 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.top-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  text-align: center;
+  padding: 5px 0;
+  p {
+    margin: 0;
+    display: inline-block;
+    &:first-child {
+      margin-right: 80px;
+      @media screen and (max-width: 625px) {
+        margin-right: 0;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
 .header {
-    display: flex;
-    flex-direction: row;
-    .header-left, .header-right { width: 50%; }
-    .header-left {
-      @media screen and (max-width: 1000px) {
-        width: 100%;
-      }
+  display: flex;
+  flex-direction: row;
+  .header-left, .header-right { width: 50%; }
+  .header-left {
+    @media screen and (max-width: 820px) {
+      width: 100%;
     }
-    .header-right {
-      @media screen and (max-width: 1000px) {
-        display: none;
-      }
-      .fa-icon {
-        height: 1.2em;
-        vertical-align: sub;
-        width: auto;
-      }
+  }
+  .header-right {
+    @media screen and (max-width: 820px) {
+      display: none;
     }
-    h1 {
-      text-align: left;
-      margin-top: 10px;
-      font-size: 1.6em;
-      letter-spacing: 5px;
-      cursor: pointer;
-      @media screen and (max-width: 1000px) {
-        text-align: center;
-      }
+    .fa-icon {
+      height: 1.2em;
+      vertical-align: sub;
+      width: auto;
     }
-    a {
-      display: block;
-      color: #fff;
-      text-decoration: none;
-      text-align: right;
-      margin-top: 10px;
+  }
+  h1 {
+    text-align: left;
+    margin: 10px 0;
+    font-size: 1.6em;
+    letter-spacing: 5px;
+    cursor: pointer;
+    @media screen and (max-width: 820px) {
+      text-align: center;
     }
+  }
+  a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    text-align: right;
+    line-height: 53px;
+  }
 }
 </style>
