@@ -6,7 +6,7 @@
       <router-link tag="h1" to="/">CryptCount</router-link>
     </div>
     <div class="header-right">
-      <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><icon name="github"></icon> &nbsp;View on GitHub</a>
+      <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><icon class="github-icon" name="github"></icon> <span class="github-text">&nbsp;View on GitHub</span></a>
     </div>
   </div>
 
@@ -96,6 +96,7 @@ export default {
 .header {
   display: flex;
   flex-direction: row;
+  position: relative;
   .header-left, .header-right { width: 50%; }
   .header-left {
     @media screen and (max-width: 820px) {
@@ -103,13 +104,24 @@ export default {
     }
   }
   .header-right {
+    .github-text {
+      @media screen and (max-width: 820px) {
+        display: none;
+      }
+    }
     @media screen and (max-width: 820px) {
-      display: none;
+      width: initial;
+      position: absolute;
+      right: 8px;
     }
     .fa-icon {
       height: 1.2em;
       vertical-align: sub;
       width: auto;
+      @media screen and (max-width: 820px) {
+        height: 1.6em;
+        vertical-align: middle;
+      }
     }
   }
   h1 {
@@ -128,6 +140,9 @@ export default {
     text-decoration: none;
     text-align: right;
     line-height: 53px;
+    @media screen and (max-width: 820px) {
+      line-height: 50px;
+    }
   }
 }
 </style>
