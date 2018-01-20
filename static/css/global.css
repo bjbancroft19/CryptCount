@@ -18,4 +18,11 @@ h1, h2, h3 {
     width: 95%;
     max-width: 1300px;
     margin: 0 auto;
-  }
+}
+
+.__cov-progress {
+    top: 82px !important;
+}
+@media screen and (max-width: 526px) {
+    .__cov-progress { top: 106px !important; }
+}

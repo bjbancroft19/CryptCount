@@ -16,6 +16,7 @@
   </div>
 
   <router-view/>
+  <vue-progress-bar/>
   </div>
 </template>
 
