@@ -6,6 +6,20 @@ import router from './router'
 
 import 'normalize-css'
 import Vue2Filters from 'vue2-filters'
+import VueProgressBar from 'vue-progressbar'
+
+const options = {
+  color: 'rgba(190, 228, 249, 0.7)',
+  failedColor: '#874b4b',
+  thickness: '2px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0s',
+    termination: 300
+  }
+}
+
+Vue.use(VueProgressBar, options)
 Vue.use(Vue2Filters)
 
 Vue.config.productionTip = false

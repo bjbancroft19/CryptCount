@@ -66,12 +66,17 @@ export default {
     getCoins: function () {
       let self = this
 
+      // start progress bar
+      this.$Progress.start()
+
       axios.get(coinmarketcapApi + '/v1/ticker/')
         .then((resp) => {
           self.coins = resp.data
+          this.$Progress.finish()
         })
         .catch((err) => {
           console.error(err)
+          this.$Progress.finish()
         })
     },
 
