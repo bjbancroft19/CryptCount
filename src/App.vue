@@ -2,7 +2,7 @@
   <div id="app">
   <div class="container header">
     <div class="header-left">
-      <router-link tag="h1" to="/">CryptoCompare</router-link>
+      <router-link tag="h1" to="/">CryptCount</router-link>
     </div>
     <div class="header-right">
       <a href="https://github.com/bjbancroft19/cryptocompare" target="_blank"><icon name="github"></icon> &nbsp;View on GitHub</a>
