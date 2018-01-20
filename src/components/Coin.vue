@@ -180,7 +180,7 @@ export default {
     padding: 0 10%;
     box-sizing: border-box;
     .percent-change { font-size: 0.8em; }
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -188,14 +188,14 @@ export default {
     }
     div {
       margin-bottom: 1.6em;
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 1000px) {
         width: 50%;
       }
     }
     h2 {
       font-size: 18px;
       margin: 0 0;
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 1000px) {
         font-size: 16px;
         padding-bottom: 5px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -204,12 +204,12 @@ export default {
     p {
       font-size: 2.5em;
       margin: 0;
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 1000px) {
         font-size: 1em;
         padding-top: 5px;
       }
     }
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1000px) {
       padding: 0;
     }
   }
