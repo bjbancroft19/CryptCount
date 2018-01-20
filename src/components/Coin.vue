@@ -6,10 +6,10 @@
         <span>Back</span>
       </router-link>
       <div class="coin-left">
-        <img v-bind:src="getCoinImage(coinData.symbol)">
+        <img v-bind:src="'static/images/128/' + coinData.symbol.toLowerCase() + '.png'">
         <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
         <p class="coin-rank">Rank #{{ coinData.rank }}</p>
-        <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a>
+        <!-- <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a> -->
       </div>
       <div class="coin-right">
         <h2>Current Price (USD)</h2>
@@ -28,10 +28,8 @@ import axios from 'axios'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 
-let cryptoCompare = 'https://www.cryptocompare.com'
 let coinmarketcapApi = 'https://api.coinmarketcap.com'
-let cryptocompareApi = 'https://min-api.cryptocompare.com'
-let updateInterval = 10 * 1000
+let updateInterval = 60 * 1000
 
 export default {
   name: 'Coin',
@@ -42,8 +40,7 @@ export default {
   data () {
     return {
       price: [],
-      coinData: {},
-      cryptoCompareData: {}
+      coinData: {}
     }
   },
 
@@ -61,38 +58,18 @@ export default {
         })
     },
 
-    getCryptoCompareData: function () {
-      let self = this
-
-      axios.get(cryptocompareApi + '/data/all/coinlist')
-        .then((resp) => {
-          self.cryptoCompareData = resp.data.Data
-          self.getCoinData()
-        })
-        .catch((err) => {
-          self.getCoinData()
-          console.error(err)
-        })
-    },
-
     /**
       * Colour red or green for negative or positive values
       */
     getColor: (num) => {
       return num > 0 ? 'color: #00d174' : 'color: #fb2853'
-    },
-
-    getCoinImage: function (symbol) {
-      if (this.cryptoCompareData[symbol]) {
-        return cryptoCompare + this.cryptoCompareData[symbol].ImageUrl
-      }
     }
   },
 
   created () {
-    this.getCryptoCompareData()
+    this.getCoinData()
     setInterval(() => {
-      this.getPrice(this.coinData.symbol)
+      this.getCoinData(this.coinData.symbol)
     }, updateInterval)
   }
 }
