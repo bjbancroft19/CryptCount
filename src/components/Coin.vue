@@ -9,15 +9,26 @@
         <img v-bind:src="'static/images/128/' + coinData.symbol.toLowerCase() + '.png'">
         <h1>{{ coinData.name }} <strong>{{ coinData.symbol }}</strong></h1>
         <p class="coin-rank">Rank #{{ coinData.rank }}</p>
-        <!-- <a v-bind:href="'https://www.cryptocompare.com' + cryptoCompareData[coinData.symbol].Url" target="_blank"><icon name="globe"></icon></a> -->
+        <h2 class="current-price-heading">Current Price (USD)</h2>
+        <p class="current-price">{{ coinData.price_usd | currency}} <span class="percent-change" v-bind:style="getColor(coinData.percent_change_24h)"><span v-if="coinData.percent_change_24h > 0">+</span>{{ coinData.percent_change_24h }}%</span></p>
       </div>
       <div class="coin-right">
-        <h2>Current Price (USD)</h2>
-        <p>{{ coinData.price_usd | currency}} <span class="percent-change" v-bind:style="getColor(coinData.percent_change_24h)"><span v-if="coinData.percent_change_24h > 0">+</span>{{ coinData.percent_change_24h }}%</span></p>
-        <h2>Circulating Supply</h2>
-        <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
-        <h2>Market Cap (USD)</h2>
-        <p>{{ coinData.market_cap_usd | currency }}</p>
+        <div>
+          <h2><strong>Market Cap (USD)</strong></h2>
+          <p>{{ coinData.market_cap_usd | currency }}</p>
+        </div>
+        <div>
+          <h2><strong>Volume (24h)</strong></h2>
+          <p>{{ coinData["24h_volume_usd"] | currency }}</p>
+        </div>
+        <div>
+          <h2><strong>Total Supply</strong></h2>
+          <p>{{ coinData.total_supply | currency('', 0) }} {{ coinData.symbol }}</p>
+        </div>
+        <div>
+          <h2><strong>Circulating Supply</strong></h2>
+          <p>{{ coinData.available_supply | currency('', 0) }} {{ coinData.symbol }}</p>
+        </div>
       </div>
     </div>
 
@@ -39,7 +50,6 @@ export default {
 
   data () {
     return {
-      price: [],
       coinData: {}
     }
   },
@@ -134,25 +144,26 @@ export default {
     padding: 0 8%;
     .coin-rank {
       margin-top: 0;
-      font-size: 18px;
-    }
-    a {
-      display: block;
-      color: inherit;
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.2);
       align-self: center;
-      &:hover {
-        .fa-icon { fill: #53346d; }
-      }
-      .fa-icon {
-        transition: .3s ease;
-        height: 2em;
-        width: auto;
-      }
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .current-price-heading {
+      margin: 0;
+      font-size: 16px;
+    }
+    .current-price {
+      font-size: 1.6em;
+      margin: 0;
+      span { font-size: 0.8em; }
     }
     p { font-size: 14px; }
     h1 {
       font-size: 2em;
-      margin: 0 0 .3em;
+      margin: 0 0 10px;
     }
     img {
       align-self: center;
@@ -169,20 +180,36 @@ export default {
     padding: 0 10%;
     box-sizing: border-box;
     .percent-change { font-size: 0.8em; }
+    @media screen and (max-width: 820px) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: left;
+    }
+    div {
+      margin-bottom: 1.6em;
+      @media screen and (max-width: 820px) {
+        width: 50%;
+      }
+    }
     h2 {
       font-size: 18px;
       margin: 0 0;
+      @media screen and (max-width: 820px) {
+        font-size: 16px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
     }
     p {
       font-size: 2.5em;
       margin: 0;
-      margin-bottom: 1em;
-      @media screen and (max-width: 1000px) {
-        font-size: 2em;
+      @media screen and (max-width: 820px) {
+        font-size: 1em;
+        padding-top: 5px;
       }
     }
-    @media screen and (max-width: 1000px) {
-      text-align: center;
+    @media screen and (max-width: 820px) {
       padding: 0;
     }
   }
