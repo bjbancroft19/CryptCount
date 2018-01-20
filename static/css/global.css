@@ -20,13 +20,9 @@ h1, h2, h3 {
     margin: 0 auto;
 }
 
-<<<<<<< HEAD
 .__cov-progress {
     top: 82px !important;
 }
 @media screen and (max-width: 526px) {
     .__cov-progress { top: 106px !important; }
 }
-=======
-.__cov-progress { top: 82px !important; }
->>>>>>> 36ea30abc10532758ba99a5519c28dc8aa529a09
