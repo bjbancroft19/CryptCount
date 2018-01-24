@@ -182,17 +182,17 @@ export default {
     }
   }
   .coin-right {
-    padding: 0 10%;
+    padding: 0 5%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
     .percent-change { font-size: 0.8em; }
-    @media screen and (max-width: 1000px) {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: left;
-    }
     div {
       margin-bottom: 1.6em;
+      width: 50%;
       @media screen and (max-width: 1000px) {
         width: 50%;
       }
@@ -204,7 +204,7 @@ export default {
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
     p {
-      font-size: 2em;
+      font-size: 1.2em;
       margin: 0;
       padding-top: 5px;
       @media screen and (max-width: 1000px) {
